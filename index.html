@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <nav>
+        Grade Calculating System
+    </nav>
+    <div class="container">
+        <div class="english input-divs">
+            <p><label for="english">English</label></p>
+            <input name="english" type="number">
+        </div>
+        <div class="hindi input-divs">
+            <p><label for="hindi">Hindi</label></p>
+            <input name="hindi" type="number">
+        </div>
+        <div class="maths input-divs">
+            <p><label for="maths">Maths</label></p>
+            <input name="maths" type="number">
+        </div>
+        <div class="computer input-divs">
+            <p><label for="computer">Computer</label></p>
+            <input name="computer" type="number">
+        </div>
+        <div class="sanskrit input-divs">
+            <p><label for="sanskrit">Sanskrit</label></p>
+            <input name="sanskrit" type="number">
+        </div>
+        <div class="science input-divs">
+            <p><label for="science">Science</label></p>
+            <input name="science" type="number">
+        </div>
+        <div class="sbm-button">
+            <button onclick="handleClick()">Calculate</button>
+        </div>
+
+        <table border="">
+            <tbody>
+                <tr>
+                    <td>Total Marks</td>
+                    <td>600</td>
+                </tr>
+                <tr>
+                    <td>Obtained Marks:</td>
+                    <td id="marks-obtained"></td>
+                </tr>
+                <tr>
+                    <td>Percentage</td>
+                    <td id="percentage-obtained"></td>
+                </tr>
+                <tr>
+                    <td>Grade :</td>
+                    <td id="grade-obtained"></td>
+                </tr>
+                <tr>
+                    <td>Remarks :</td>
+                    <td id="remarks-obtained"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    let eng, hin, maths, comp, sans, sci;
+    let inputs = [...document.getElementsByTagName("input")];
+    //inputs[1].addEventListener("blur", handleInput) ;
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener("blur", handleInput);
+    }
+    function handleInput(e) {
+        let targetName = e.target.name;
+        let targetValue = parseInt(e.target.value, 10);
+        if (targetValue <= 100 && targetValue >= 0) {
+
+            switch (targetName) {
+                case "english":
+                    eng = targetValue
+                    break;
+                case "hindi":
+                    hin = targetValue;
+                    break;
+                case "maths":
+                    maths = targetValue;
+                    break;
+                case "computer":
+                    comp = targetValue;
+                    break;
+                case "sanskrit":
+                    sans = targetValue;
+                    break;
+                case "science":
+                    sci = targetValue;
+                    break;
+            }
+            //console.log("correct value", english);
+        }
+        else {
+            alert(`enter marks between 0 to 100 for ${e.target.name}`);
+        }
+    }
+
+    function handleClick() {
+        if (eng == undefined || hin == undefined || maths == undefined || comp == undefined || sans == undefined || sci === undefined) {
+            alert("enter values for all feilds");
+        }
+        else {
+            let obtained = eng + hin + maths + comp + sans + sci;
+            let percentage = Math.round(100 * (obtained / 600));
+            let grade;
+            let remarks;
+            if (percentage >= 80) {
+                grade = "A";
+                remarks = "PASS" ;
+            } else if (percentage >= 60 && percentage < 80) {
+                grade = "B";
+                remarks = "PASS" ;
+            } else if (percentage >= 40 && percentage < 60) {
+                grade = "C";
+                remarks = "PASS" ;
+            } else {
+                grade = "D";
+                remarks = "FAIL" ;
+            }
+                document.getElementById("marks-obtained").innerText = obtained ;
+                document.getElementById("percentage-obtained").innerText = percentage ;
+                document.getElementById("grade-obtained").innerText = grade ;
+                document.getElementById("remarks-obtained").innerText = remarks ;
+        }
+        
+    }
+        
+    
+</script>
+
+</html>
